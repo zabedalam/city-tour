@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   media: {
     height: 240,
     width: "auto",
-    margin: 10
+    margin: 10,
   }
 });
 const HomeDetails = (props: Data): any => {
