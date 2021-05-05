@@ -15,7 +15,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   header: {
-    backgroundColor: "blue",
+    backgroundColor: "#F0FFFF",
     paddingRight: "79px",
     paddingLeft: "118px",
     "@media (max-width: 900px)": {
@@ -25,14 +25,15 @@ const useStyles = makeStyles(() => ({
   logo: {
     fontFamily: "Work Sans, sans-serif",
     fontWeight: 600,
-    color: "#FFFEFE",
+    color: "#696969",
     textAlign: "left"
   },
   menuButton: {
     fontFamily: "Open Sans, sans-serif",
     fontWeight: 700,
     size: "18px",
-    marginLeft: "38px"
+    marginLeft: "38px",
+    color:"#696969"
   },
   toolbar: {
     display: "flex",
@@ -59,6 +60,10 @@ const headersData = [
   {
     label: "Contact",
     href: "/contact"
+  },
+  {
+    label: "Login",
+    href: "/login"
   }
 ];
 
@@ -99,7 +104,7 @@ const Header = () => {
         <IconButton
           {...{
             edge: "start",
-            color: "inherit",
+            // color: "inherit",
             "aria-label": "menu",
             "aria-haspopup": "true",
             onClick: handleDrawerOpen

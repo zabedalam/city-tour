@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { Grid, makeStyles } from "@material-ui/core/";
 import Data from "../Data/Data";
 import HomeDetails from "../HomeDetails/HomeDetails";
-import BgImage from "../../../images/Bg.png"
+import BgImage from "../../../images/Bg.png";
+import Header from "../../Header/Header";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing(5),
-    backgroundImage:`url(${BgImage})`,
-    backgroundSize:"cover",
-    height:"100vh",
+    backgroundImage: `url(${BgImage})`,
+    backgroundSize: "cover",
+    height: "100vh",
+    paddingTop: 200
   }
 }));
 const Home = () => {
@@ -18,6 +20,7 @@ const Home = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <Header></Header>
       <Grid
         container
         spacing={2}
