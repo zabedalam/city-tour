@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "Firebase.config.tsx"  ]
 }

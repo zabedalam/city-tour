@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Avatar,
@@ -15,6 +15,10 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Header from "../Header/Header";
+import {
+  initializeLoginFrameWork,
+  signInWithEmailAndPassword
+} from "../Firebase/LoginManager";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -35,7 +39,81 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2)
   }
 }));
-const Login = () => {
+interface EventTarget {
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    useCapture?: boolean
+  ): void;
+  dispatchEvent(evt: Event): boolean;
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    useCapture?: boolean
+  ): void;
+}
+
+interface UserInfo {
+  isSignedIn: boolean,
+  name: string,
+  email: string,
+  password: string,
+  error: string,
+  success: boolean,
+  target: EventTarget
+}
+// let Data:(string | number|boolean)[]=[]
+// interface UserInfo {
+//   isSignedIn: boolean;
+//   name: string;
+//   email: string;
+//   password: string;
+//   error: string;
+//   success: boolean;
+//   target: EventTarget;
+// }
+const Login = (person: UserInfo) => {
+  const [user, setUser] = useState({
+    isSignedIn: false,
+    name: "",
+    email: "",
+    password: "",
+    error: "",
+    success: false
+  });
+
+  initializeLoginFrameWork();
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (user.email && user.password) {
+      signInWithEmailAndPassword(user.email, user.password).then(res => {
+        handleResponse(res);
+      });
+    }
+  };
+
+  const handleResponse = (res: any) => {
+    setUser(res);
+  };
+
+  const handleBlur = (e: UserInfo) => {
+    let isFormValid = true;
+    let target = e.target as HTMLInputElement;
+    if (target.name === "email") {
+      isFormValid = /\S+@\S+\.\S+/.test(target.value);
+    }
+    if (target.name === "password") {
+      const isPasswordValid = target.value.length > 6;
+      const passwordHasNumber = /\d{1}/.test(target.value);
+      isFormValid = isPasswordValid && passwordHasNumber;
+    }
+    if (isFormValid) {
+      const newUserInfo = { ...user };
+      newUserInfo[target.name] = target.value;
+      setUser(newUserInfo);
+    }
+  };
   const { paper, avatar, form, submit } = useStyles();
   return (
     <div>
